@@ -1,11 +1,12 @@
-function userController(logger) {
+function userController(logger, db) {
     return {
       get: async function getAssistants(req, res) {
         const log = logger.child({ function: 'registerUser' });
         try {
-            log.info('Assistants found')
-            res.status(200).send({
-              message: 'Assistants found'
+          const assistants = db.assistants.getAll()
+          log.info('Assistants found')
+          res.status(200).send({
+            assistants
           })
         } catch {
             log.error('Could not find assistants')
