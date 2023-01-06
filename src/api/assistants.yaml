@@ -1,0 +1,17 @@
+collection:
+  get:
+    description: Get all assistants
+    tags:
+      - Assistants
+    responses:
+      200:
+        description: Assistants fetched
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name: 
+                    type: string
