@@ -2,3 +2,7 @@ port: 3000
 
 logger:
   level: info
+
+db:
+  uri: mongodb://user:password@127.0.0.1:27017/dbName
+  dbName: dbName
