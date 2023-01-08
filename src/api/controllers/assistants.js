@@ -5,11 +5,12 @@ function assistantsController(logger, db) {
       try {
         const assistants = await db.assistants.getAll()
         log.info('Assistants found')
+        const parsedAssistants = assistants.map((assistant) => assistant.toJson())
         res.status(200).send({
-          assistants
+          assistants: parsedAssistants
         })
-      } catch {
-          log.error('Could not find assistants')
+      } catch (err){
+          log.error({reason: err.message},'Could not find assistants')
           res.status(500).send({
               message: 'Could not get assistants'
           })
@@ -21,12 +22,13 @@ function assistantsController(logger, db) {
       try {
         const assistantData = req.body;
         const assistant = await db.assistants.create(assistantData)
-        console.log(assistant.toJson());
         log.info('Assistant created')
+        await db.skillsets.create({name: 'published', assistantId: assistant.id});
         res.status(200).send(
           assistant.toJson()
         )
       } catch (err){
+        log.error({reason: err.message},'Could not find assistants')
         res.status(500).send({
           message: err.message
         })
