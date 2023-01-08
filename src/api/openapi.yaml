@@ -9,3 +9,9 @@ servers:
 paths:
   /assistants:
     $ref: ./assistants.yaml#/collection
+  /assistants/:id/skillsets:
+    $ref: ./skillsets.yaml#/collection
+  /assistants/:id/skillsets/:skillsetId:
+    $ref: ./skillsets.yaml#/instance
+  /assistants/:id/skillsets/:skillsetId/converse:
+    $ref: ./skillsets.yaml#/converse

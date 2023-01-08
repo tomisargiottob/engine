@@ -1,0 +1,80 @@
+collection:
+  get:
+    description: Get all assistant skillsets
+    tags:
+      - Assistants
+      - Skillsets
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      200:
+        description: Assistants skillsets fetched
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  name: 
+                    type: string
+
+instance:
+  get:
+    description: Get assistant skillset
+    tags:
+      - Assistants
+      - Skillsets
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string    
+    responses:
+      200:
+        description: Assistants skillsets fetched
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+
+converse:
+  post:
+    description: Converse with assistant based on particular skillset
+    tags:
+      - Assistants
+      - Skillsets
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string    
+    responses:
+      200:
+        description: Assistant response to given message
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message: 
+                  type: string
