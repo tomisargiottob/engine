@@ -4,6 +4,7 @@ import { initialize } from "express-openapi";
 import logger from "./components/logger";
 import openapiParser from 'swagger-parser';
 import Database from "./components/database";
+import errors from 'common-errors';
 
 function errorHandler(err, req, res, next) {
     if (err.status === 400) {
@@ -26,7 +27,8 @@ async function main() {
       apiDoc,
       dependencies: {
         logger,
-        db
+        db,
+        errors,
       },
       errorMiddleware: errorHandler,
       promiseMode: true,
