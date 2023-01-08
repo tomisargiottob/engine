@@ -1,5 +1,6 @@
 import { MongoClient } from "mongodb";
 import Assistants from "./collections/assistants";
+import Skillsets from "./collections/skillsets";
 
 class Database {
   constructor({logger}, config) {
@@ -13,6 +14,7 @@ class Database {
     this.logger.info('Successfully connected to database')
     this.db = this.client.db(this.config.dbName);
     this.assistants = new Assistants(this.db)
+    this.skillsets = new Skillsets(this.db)
   }
 }
 
