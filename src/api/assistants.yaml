@@ -15,3 +15,28 @@ collection:
                 properties:
                   name: 
                     type: string
+  post:
+    description: Create assistant
+    tags:
+      - Assistants
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - name
+            properties:
+              name: 
+                type: string
+    responses:
+      200:
+        description: Assistants created
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
