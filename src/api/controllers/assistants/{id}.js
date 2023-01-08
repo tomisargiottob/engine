@@ -10,14 +10,14 @@ function assistantController(logger, db, errors) {
           throw new errors.NotFoundError('Assistant does not exist')
         }
         log.info('Assistant found')
-        res.status(200).send({
-          assistant
-        })
+        res.status(200).send(
+          assistant.toJson()
+        )
       } catch (err) {
         if (err instanceof errors.NotFoundError) {  
           res.status(404).send({message: err.message})
         } else {
-          log.error('Could not find assistant')
+          log.error({reason: err.message}, 'Could not find assistant')
           res.status(500).send({
               message: 'Could not get assistant'
           })

@@ -14,7 +14,11 @@ class Assistants{
 
   async getById(id) {
     const assistant = await this.collection.findOne({_id:id});
-    return new Assistant(this.collection, assistant)
+    if(assistant) {
+      return new Assistant(this.collection, assistant)
+    } else {
+      return null
+    }
   }
 
   async create(assistantData) {
