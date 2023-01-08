@@ -3,6 +3,12 @@ class Assistant{
     this.collection = collection;
     this.name = data.name
   }
+
+  toJson() {
+    return {
+      name: this.name
+    }
+  }
 }
 
 export default Assistant
