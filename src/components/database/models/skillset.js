@@ -4,11 +4,7 @@ class Skillset{
     this.name = data.name;
     this.id = data._id;
   }
-
-  converse() {
-    return 'Hello world'
-  }
-
+  
   toJson() {
     return {
       id: this.id,
