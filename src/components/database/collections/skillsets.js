@@ -21,6 +21,15 @@ class Skillsets{
     }
   }
 
+  async getOne(id, assistantId) {
+    const skillset = await this.collection.findOne({_id: id, assistantId})
+    if(skillset) {
+      return new Skillset(this.collection, skillset)
+    } else {
+      return null
+    }
+  }
+
   async create(skillsetData) {
     const createSkillset= {
       _id: uuid(),
