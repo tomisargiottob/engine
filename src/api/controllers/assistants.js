@@ -1,4 +1,4 @@
-function assistantsController(logger, db) {
+function assistantsController(logger, db, dialogNexus) {
   return {
     get: async function getAssistants(req, res) {
       const log = logger.child({ module: 'assistantsController', method: 'getAssistants' });
@@ -23,7 +23,8 @@ function assistantsController(logger, db) {
         const assistantData = req.body;
         const assistant = await db.assistants.create(assistantData)
         log.info('Assistant created')
-        await db.skillsets.create({name: 'published', assistantId: assistant.id});
+        const skillset = await db.skillsets.create({name: 'published', assistantId: assistant.id});
+        await dialogNexus.initializeDialog(skillset)
         res.status(200).send(
           assistant.toJson()
         )
