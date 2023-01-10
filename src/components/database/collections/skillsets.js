@@ -8,7 +8,11 @@ class Skillsets{
   }
 
   async getAll(filter) {
-    const skillsets = await this.collection.find({assistantId : filter.assistantId}).toArray();
+    const where = {}
+    if (filter?.assistantId) {
+      where.assistantId = filter.assistantId
+    }
+    const skillsets = await this.collection.find(where).toArray();
     return skillsets.map((assistant) => new Skillset(this.collection, assistant))
   }
 
