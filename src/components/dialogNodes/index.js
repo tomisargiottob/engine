@@ -1,4 +1,4 @@
-class Node{
+class DialogNode{
   constructor(node) {
     this.condition = node.condition;
     this.message = node.message;
@@ -9,4 +9,4 @@ class Node{
   }
 }
 
-export default Node
+export default DialogNode

@@ -3,6 +3,7 @@ class Skillset{
     this.collection = collection;
     this.name = data.name;
     this.id = data._id;
+    this.assistantId = data.assistantId
   }
   
   toJson() {
