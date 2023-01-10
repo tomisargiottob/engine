@@ -6,3 +6,6 @@ logger:
 db:
   uri: mongodb://user:password@127.0.0.1:27017/dbName
   dbName: dbName
+
+context:
+  timeout: 36000000
