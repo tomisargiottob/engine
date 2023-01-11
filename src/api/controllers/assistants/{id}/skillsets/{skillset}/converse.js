@@ -4,6 +4,7 @@ function converseController(logger, db, errors, dialogNexus) {
       const log = logger.child({ module: 'converseController', method: 'converse' });
       try {
         const {id, skillset: skillsetId} = req.params;
+        const { sessionId, message } = req.body;
         const assistant = await db.assistants.getById(id)
         if (!assistant) {
           log.warn({assistantId: id},'Assistant does not exist')
@@ -15,9 +16,10 @@ function converseController(logger, db, errors, dialogNexus) {
           log.warn({assistantId: id},'Skillset does not exist')
           throw new errors.NotFoundError('Skillset does not exist')
         }
-        const response = await dialogNexus.processResponse(id,skillsetId, req.body);
+        const [response, contextId] = await dialogNexus.processResponse(id,skillsetId, message, sessionId);
         res.status(200).send({
-          response
+          response,
+          sessionId: contextId
         })
       } catch (err) {
         if (err instanceof errors.NotFoundError) {  
@@ -25,7 +27,7 @@ function converseController(logger, db, errors, dialogNexus) {
         } else {
           log.error({reason: err.message}, 'Could not converse with assistant')
           res.status(500).send({
-              message: 'Could not get assistant'
+            message: 'Could not converse with assistant'
           })
         }
       }
