@@ -20,7 +20,7 @@ class DialogNexus {
   
   initializeDialog(skillset) {
     this.logger.info(`Initializing assistant ${skillset.assistantId}, skillset ${skillset.id}`)
-    const dialog = new Dialog(skillset)
+    const dialog = new Dialog({skillset, logger: this.logger})
     if(!this.dialogs[dialog.assistantId]) {
       this.dialogs[dialog.assistantId] = {}
     }

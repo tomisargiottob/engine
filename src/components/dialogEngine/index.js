@@ -2,11 +2,12 @@ import createGraph from "ngraph.graph";
 import DialogNode from '../dialogNodes/index'
 
 class Dialog {
-  constructor(skillset) {
+  constructor({skillset, logger}) {
     this.id = skillset.id
     this.assistantId = skillset.assistantId
     this.dialog = createGraph()
     this.nodes = {}
+    this.logger= logger.child({assistant: this.assistantId, skillset: skillset.name})
     // this.currentDialog = skillset.dialog
     this.currentDialog = [
       {name: 'ROOT', response: 'Hello from the root node', condition:'/start', goTo: '', parent: ''},
@@ -19,6 +20,7 @@ class Dialog {
   }
 
   init() {
+    this.logger.info('Initializing dialog')
     for(const node of this.currentDialog) {
       this.nodes[node.name] = new DialogNode(node)
       this.dialog.addNode(node.name, node)
@@ -29,6 +31,7 @@ class Dialog {
   }
 
   converse(message, context) {
+    this.logger.info('Searching for next dialog node')
     let lastNodeName = ''
     if(context.data.lastNode) {
       lastNodeName = context.data.lastNode;
