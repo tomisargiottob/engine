@@ -16,6 +16,19 @@ class Context {
       }
     })
   }
+
+  getValue(value) {
+    if(value.startsWith('$')) {
+      return this.variables[value]
+    }
+    if(value.startsWith('_')) {
+      return this.tempVariables[value]
+    }
+    if(this.data[value]) {
+      return this.data[value]
+    }
+    return value
+  }
 }
 
 export default Context
