@@ -1,4 +1,5 @@
 import createGraph from "ngraph.graph";
+import checkCondition from "../conditionHandler";
 import DialogNode from '../dialogNodes/index'
 
 class Dialog {
@@ -10,12 +11,12 @@ class Dialog {
     this.logger= logger.child({assistant: this.assistantId, skillset: skillset.name})
     // this.currentDialog = skillset.dialog
     this.currentDialog = [
-      {name: 'ROOT', response: 'Hello from the root node', condition:'/start', goTo: '', parent: ''},
+      {name: 'ROOT', response: 'Send 1 for branch 1, 2 for branch 2', condition:'message EQ /start', goTo: '', parent: ''},
       {name: 'Default', response: 'default message', condition:'Anything else', goTo: '', parent: ''},
-      {name: 'first', response: 'Hello from first node', condition:'Anything else', goTo: '', parent: 'ROOT'},
-      {name: 'second', response: 'Hello from second node', condition:'Anything else', goTo: '', parent: 'first'},
-      {name: 'third', response: 'Hello from third node', condition:'Anything else', goTo: '', parent: 'second'},
-      {name: 'fourth', response: 'Hello from fourth node', condition:'Anything else', goTo: '', parent: 'third'}
+      {name: 'first', response: 'You have reached bottom of the line', condition:'message EQ 1', goTo: '', parent: 'ROOT'},
+      {name: 'second', response: 'Send 1 for branch 1, 2 for branch 2', condition:'message EQ 2', goTo: '', parent: 'ROOT'},
+      {name: 'third', response: 'Hello from third node', condition:'message EQ 1', goTo: '', parent: 'second'},
+      {name: 'fourth', response: 'Hello from fourth node', condition:'message IN [2,3,5]', goTo: '', parent: 'second'}
     ]
   }
 
@@ -39,12 +40,31 @@ class Dialog {
     let nextNode;
     if(!lastNodeName) {
       nextNode = this.dialog.getNode('ROOT')
+      if(!checkCondition(nextNode.data.condition, message, context)) {
+        nextNode = this.dialog.getNode('Default')
+      }
     } else {
       const nextNodesLinks = this.dialog.getLinks(lastNodeName);
-      nextNodesLinks.forEach((link) => {
-        const nextNodeName = link.toId;
-        nextNode = this.dialog.getNode(nextNodeName)
-      })
+      if(nextNodesLinks) {
+        const nextLink = [...nextNodesLinks].find((link) => {
+          if(link.toId === lastNodeName) {
+            return false  
+          }
+          const nextNodeName = link.toId;
+          const possibleNode = this.dialog.getNode(nextNodeName)
+          if(checkCondition(possibleNode.data.condition, message, context)) {
+            return true
+          }
+          return false
+        })
+        if (nextLink) {
+          nextNode = this.dialog.getNode(nextLink.toId)
+        }
+      }
+      if(!nextNode) {
+        context.setContext({lastNode: ''})
+        return this.converse(message, context)
+      }
     }
     return [nextNode.data.response, nextNode.data.name]
   }
