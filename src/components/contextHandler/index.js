@@ -1,4 +1,5 @@
 import { v4 as uuid } from "uuid";
+import Context from "./context";
 
 class ContextHandler {
   constructor({logger}, config) {
@@ -11,9 +12,7 @@ class ContextHandler {
     this.logger.info({method: 'getContext'}, 'Getting session context if existent')
     const newSessionId = sessionId || uuid()
     if(!this.sessions[newSessionId]) {
-      this.sessions[newSessionId] = {
-        id: newSessionId
-      }
+      this.sessions[newSessionId] = new Context(newSessionId)
     }
     clearTimeout(this.sessions[newSessionId].timeout)
     this.sessions[newSessionId].timeout = setTimeout(() => {
