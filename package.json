@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npx migrate-mongo up && node --experimental-specifier-resolution=node src/app.js",
+    "start": "npx migrate-mongo up && node --experimental-specifier-resolution=node src/app.js | pino-pretty -S",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/tomisargiottob/engine#readme",
   "dependencies": {
-    "common-errors": "^1.2.0",
+    "common-errors": "1.2.0",
     "config": "3.3.8",
     "express": "4.18.2",
     "express-openapi": "12.1.0",
@@ -31,10 +31,11 @@
     "ngraph.graph": "20.0.1",
     "pino": "8.8.0",
     "swagger-parser": "10.0.3",
-    "uuid": "^9.0.0",
+    "uuid": "9.0.0",
     "yaml": "2.2.1"
   },
   "devDependencies": {
+    "pino-pretty": "^9.1.1",
     "eslint": "^8.31.0",
     "migrate-mongo": "^9.0.0"
   }
