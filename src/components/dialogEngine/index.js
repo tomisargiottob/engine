@@ -9,9 +9,12 @@ class Dialog {
     this.nodes = {}
     // this.currentDialog = skillset.dialog
     this.currentDialog = [
-      {name: 'ROOT', response: 'Hello world', condition:'/start', goTo: '', parent: ''},
+      {name: 'ROOT', response: 'Hello from the root node', condition:'/start', goTo: '', parent: ''},
       {name: 'Default', response: 'default message', condition:'Anything else', goTo: '', parent: ''},
-      {name: 'first', response: 'Hello world', condition:'Anything else', goTo: '', parent: 'ROOT'}
+      {name: 'first', response: 'Hello from first node', condition:'Anything else', goTo: '', parent: 'ROOT'},
+      {name: 'second', response: 'Hello from second node', condition:'Anything else', goTo: '', parent: 'first'},
+      {name: 'third', response: 'Hello from third node', condition:'Anything else', goTo: '', parent: 'second'},
+      {name: 'fourth', response: 'Hello from fourth node', condition:'Anything else', goTo: '', parent: 'third'}
     ]
   }
 
@@ -20,20 +23,27 @@ class Dialog {
       this.nodes[node.name] = new DialogNode(node)
       this.dialog.addNode(node.name, node)
       if(node.parent) {
-        this.dialog.addLink(node.name, node.parent)
+        this.dialog.addLink(node.parent, node.name)
       }
     }
   }
 
   converse(message, context) {
-    let lastNodeName = 'ROOT'
-    if(context.lastNode) {
-      lastNodeName = context.lastNode;
+    let lastNodeName = ''
+    if(context.data.lastNode) {
+      lastNodeName = context.data.lastNode;
     }
-    const lastNode = this.dialog.getNode(lastNodeName)
-    const nextNodes = this.dialog.getLinks(lastNode);
-    console.log(nextNodes)
-
+    let nextNode;
+    if(!lastNodeName) {
+      nextNode = this.dialog.getNode('ROOT')
+    } else {
+      const nextNodesLinks = this.dialog.getLinks(lastNodeName);
+      nextNodesLinks.forEach((link) => {
+        const nextNodeName = link.toId;
+        nextNode = this.dialog.getNode(nextNodeName)
+      })
+    }
+    return [nextNode.data.response, nextNode.data.name]
   }
 }
 

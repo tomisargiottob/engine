@@ -31,8 +31,9 @@ class DialogNexus {
   processResponse(assistantId, skillsetId, message, sessionId) {
     this.logger.info('Processing response')
     const context = this.contextHandler.getContext(sessionId);
-    const response = this.dialogs[assistantId][skillsetId].converse(message, context)
-    return response || 'Hello world'
+    const [response, lastNode] = this.dialogs[assistantId][skillsetId].converse(message, context)
+    context.setContext({lastNode})
+    return [response || 'Hello world', context.id]
   }
 }
 
