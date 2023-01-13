@@ -50,6 +50,56 @@ instance:
               properties:
                 name: 
                   type: string
+  patch:
+    description: Update assistant dialog
+    parameters: 
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string    
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              type: object
+              required:
+                - name
+                - condition
+                - response
+                - goTo
+                - parent
+              properties:
+                name: 
+                  type: string
+                condition: 
+                  type: string
+                response: 
+                  type: string
+                goTo: 
+                  type: string
+                parent: 
+                  type: string
+    responses:
+      200:
+        description: Assistants skillsets fetched
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+                dialog: 
+                  $ref: '#/components/schemas/Dialog'
+
 
 converse:
   post:
@@ -78,3 +128,27 @@ converse:
               properties:
                 message: 
                   type: string
+
+components:
+  schemas:
+    Dialog:
+      type: array
+      items:
+        type: object
+        required:
+          - name
+          - condition
+          - response
+          - goTo
+          - parent
+        properties:
+          name: 
+            type: string
+          condition: 
+            type: string
+          response: 
+            type: string
+          goTo: 
+            type: string
+          parent: 
+            type: string  
