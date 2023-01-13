@@ -55,7 +55,7 @@ function skillsetController(logger, db, errors) {
         } else {
           log.error({reason: err.message},'Could not find assistant skillset')
           res.status(500).send({
-              message: 'Could not get assistant'
+              message: 'Could not update assistant'
           })
         }
       }
