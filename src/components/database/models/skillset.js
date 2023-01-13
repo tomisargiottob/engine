@@ -3,7 +3,12 @@ class Skillset{
     this.collection = collection;
     this.name = data.name;
     this.id = data._id;
-    this.assistantId = data.assistantId
+    this.assistantId = data.assistantId;
+    this.dialog = data.dialog;
+  }
+
+  update(dialog) {
+    return this.collection.update(this.id, { $set: { dialog}})
   }
   
   toJson() {
