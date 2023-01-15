@@ -1,0 +1,39 @@
+import "google/protobuf/wrappers.proto";
+syntax = "proto3";
+
+service Entities {
+  rpc createEntity (EntityInput) returns (.google.protobuf.BoolValue) {}
+  rpc updateEntity (EntityInput) returns (.google.protobuf.BoolValue) {}
+  rpc identifyEntities (RequestMessage) returns (EntitiesDetected) {}
+}
+
+message SkillsetData {
+  string assistantId= 1;
+  string skillsetId=2;
+}
+
+message RequestMessage {
+  extend SkillsetData {}
+  string message=3;
+}
+
+message EntitiesDetected {
+  repeated string entities = 1; 
+}
+
+message Entity {
+  string name=1;
+  repeated string synonyms=2 [(gogoproto.nullable) = true];
+  optional string regex=3;
+}
+
+message EntityData {
+  string name=1;
+  string description=2;
+  repeated Entity entities =3;
+}
+
+message EntityInput {
+  extend SkillsetData {}
+  EntityData entityData=3;
+}
