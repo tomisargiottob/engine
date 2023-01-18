@@ -15,6 +15,9 @@ collection:
                 properties:
                   name: 
                     type: string
+      500:
+        $ref: './errors.yaml#/500'
+
   post:
     description: Create assistant
     tags:
@@ -40,3 +43,7 @@ collection:
               properties:
                 name: 
                   type: string
+      400:
+        $ref: './errors.yaml#/400'
+      500:
+        $ref: './errors.yaml#/500'

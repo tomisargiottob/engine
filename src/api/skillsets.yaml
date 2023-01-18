@@ -22,6 +22,10 @@ collection:
                 properties:
                   name: 
                     type: string
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
 
 instance:
   get:
@@ -50,6 +54,13 @@ instance:
               properties:
                 name: 
                   type: string
+      400:
+        $ref: './errors.yaml#/400'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+
   patch:
     description: Update assistant dialog
     parameters: 
@@ -99,6 +110,12 @@ instance:
                   type: string
                 dialog: 
                   $ref: '#/components/schemas/Dialog'
+      400:
+        $ref: './errors.yaml#/400'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
 
 
 converse:
@@ -128,6 +145,12 @@ converse:
               properties:
                 message: 
                   type: string
+      400:
+        $ref: './errors.yaml#/400'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
 
 components:
   schemas:
