@@ -15,3 +15,7 @@ paths:
     $ref: ./skillsets.yaml#/instance
   /assistants/{id}/skillsets/{skillsetId}/converse:
     $ref: ./skillsets.yaml#/converse
+  /assistants/{id}/skillsets/{skillsetId}/entities:
+    $ref: ./entities.yaml#/collection
+  /assistants/{id}/skillsets/{skillsetId}/entities/{entityId}:
+    $ref: ./entities.yaml#/instance

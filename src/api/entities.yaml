@@ -1,0 +1,197 @@
+collection:
+  get:
+    description: Get all entities from an assistant skillsets
+    tags:
+      - Assistants
+      - Skillsets
+      - Entities
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      200:
+        description: Entities from Assistants skillsets fetched
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entities:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Entity'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+
+
+  post:
+    description: Create Entity
+    tags:
+      - Assistants
+      - Skillsets 
+      - Entities
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - name
+            properties:
+              name: 
+                type: string
+    responses:
+      200:
+        description: Entity created
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entity'
+
+      400:
+        $ref: './errors.yaml#/400'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+
+instance:
+  patch:
+    description: Update Entity
+    tags:
+      - Assistants
+      - Skillsets 
+      - Entities
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            properties:
+              name: 
+                type: string
+              synonyms: 
+                type: array
+                items: 
+                  type: string
+              regex: 
+                type: string
+    responses:
+      200:
+        description: Entity updated
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entity'
+
+      400:
+        $ref: './errors.yaml#/400'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+
+  delete:
+    description: Delete Entity
+    tags:
+      - Assistants
+      - Skillsets 
+      - Entities
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      204:
+        description: Entity Deleted
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+
+  get:
+    description: Fetch Entity
+    tags:
+      - Assistants
+      - Skillsets 
+      - Entities
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillsetId
+        in: path
+        required: true
+        schema:
+          type: string
+    responses:
+      200:
+        description: Entity fetched
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Entity'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+components:
+  schemas:
+    Entity:
+      type: object
+      properties:
+        skillsetId:
+          type: string
+        assistantId:
+          type: string
+        name: 
+          type: string
+        synonyms:
+          type: array
+          items:
+            type: string
+        regex:
+          type: string
