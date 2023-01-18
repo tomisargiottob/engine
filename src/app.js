@@ -6,6 +6,7 @@ import openapiParser from 'swagger-parser';
 import Database from "./components/database";
 import errors from 'common-errors';
 import DialogNexus from "./components/dialogNexus";
+import Entities from './components/entitiesHandler'
 
 function errorHandler(err, req, res, next) {
     if (err.status === 400) {
@@ -23,7 +24,7 @@ async function main() {
     logger.info('Connecting to database');
     await db.connect();
     const apiDoc = await openapiParser.dereference('src/api/openapi.yaml')
-
+    const entities = new Entities({logger}, config.entities)
     const dialogNexus = new DialogNexus({db, logger}, config)
     await dialogNexus.init()
     initialize({
@@ -34,6 +35,7 @@ async function main() {
         db,
         errors,
         dialogNexus,
+        entities
       },
       errorMiddleware: errorHandler,
       promiseMode: true,
