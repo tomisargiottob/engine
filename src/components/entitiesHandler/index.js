@@ -47,12 +47,48 @@ class Entities {
 
   async updateEntity(assistantId, skillsetId, entityId, entityData ) {
     try {
-      this.logger.info({assistantId, skillsetId, entity: entityData.name}, 'Updating entity')
+      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Updating entity')
       await this.client.updateEntity({assistantId, skillsetId, entityId ,entityData})
-      this.logger.info({assistantId, skillsetId, entity: entityData.name}, 'Entities successfully updated')
+      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entities successfully updated')
       return true
     } catch (err) {
       this.logger.error({assistantId, skillsetId,  entity: entityData.name, reason: err.message},'Could not update entity')
+      return false
+    }
+  }
+
+  async deleteEntity(assistantId, skillsetId, entityId ) {
+    try {
+      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Removing entity')
+      await this.client.deleteEntity({assistantId, skillsetId, entityId})
+      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entity successfully removed')
+      return true
+    } catch (err) {
+      this.logger.error({assistantId, skillsetId,  entity: entityId, reason: err.message},'Could not remove entity')
+      return false
+    }
+  }
+
+  async getEntities(assistantId, skillsetId ) {
+    try {
+      this.logger.info({assistantId, skillsetId}, 'Fetching entities')
+      await this.client.getEntities({assistantId, skillsetId})
+      this.logger.info({assistantId, skillsetId}, 'Entities successfully fetched')
+      return true
+    } catch (err) {
+      this.logger.error({assistantId, skillsetId, reason: err.message},'Could not fetch entities')
+      return false
+    }
+  }
+
+  async getEntity(assistantId, skillsetId, entityId ) {
+    try {
+      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Fetching entity')
+      await this.client.getEntity({assistantId, skillsetId, entityId })
+      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entity successfully fetched')
+      return true
+    } catch (err) {
+      this.logger.error({assistantId, skillsetId,  entity: entityId, reason: err.message},'Could not fetch entity')
       return false
     }
   }
