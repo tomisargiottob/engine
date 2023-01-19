@@ -16,7 +16,7 @@ message SkillsetData {
 }
 message SkillsetId {
   extend SkillsetData {};
-  string id=3;
+  string entityId=3;
 }
 
 message RequestMessage {

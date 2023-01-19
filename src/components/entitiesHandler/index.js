@@ -30,7 +30,9 @@ class Entities {
     this.client.createEntity= promisify(this.client.createEntity)
     this.client.updateEntity= promisify(this.client.updateEntity)
     this.client.identifyEntities= promisify(this.client.identifyEntities)
-
+    this.client.deleteEntity= promisify(this.client.deleteEntity)
+    this.client.getEntities= promisify(this.client.getEntities)
+    this.client.getEntity= promisify(this.client.getEntity)
   }
 
   async createEntity(assistantId, skillsetId, entity ) {
@@ -72,9 +74,9 @@ class Entities {
   async getEntities(assistantId, skillsetId ) {
     try {
       this.logger.info({assistantId, skillsetId}, 'Fetching entities')
-      await this.client.getEntities({assistantId, skillsetId})
+      const entities = await this.client.getEntities({assistantId, skillsetId})
       this.logger.info({assistantId, skillsetId}, 'Entities successfully fetched')
-      return true
+      return entities
     } catch (err) {
       this.logger.error({assistantId, skillsetId, reason: err.message},'Could not fetch entities')
       return false
@@ -84,9 +86,9 @@ class Entities {
   async getEntity(assistantId, skillsetId, entityId ) {
     try {
       this.logger.info({assistantId, skillsetId, entity: entityId}, 'Fetching entity')
-      await this.client.getEntity({assistantId, skillsetId, entityId })
+      const entity = await this.client.getEntity({assistantId, skillsetId, entityId })
       this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entity successfully fetched')
-      return true
+      return entity
     } catch (err) {
       this.logger.error({assistantId, skillsetId,  entity: entityId, reason: err.message},'Could not fetch entity')
       return false

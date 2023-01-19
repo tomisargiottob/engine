@@ -25,6 +25,7 @@ async function main() {
     await db.connect();
     const apiDoc = await openapiParser.dereference('src/api/openapi.yaml')
     const entities = new Entities({logger}, config.entities)
+
     const dialogNexus = new DialogNexus({db, logger}, config)
     await dialogNexus.init()
     initialize({
