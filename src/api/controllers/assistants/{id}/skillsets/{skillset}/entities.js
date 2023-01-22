@@ -16,9 +16,7 @@ function entitiesController(logger, db, errors, entities) {
           throw new errors.NotFoundError('Skillset does not exist')
         }
         const fetchedEntities = await entities.getEntities(id, skillsetId)
-        res.status(200).send({
-          entities: fetchedEntities
-        })
+        res.status(200).send(fetchedEntities)
       } catch (err) {
         if (err instanceof errors.NotFoundError) {  
           res.status(404).send({message: err.message})

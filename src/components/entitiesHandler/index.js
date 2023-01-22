@@ -38,9 +38,9 @@ class Entities {
   async createEntity(assistantId, skillsetId, entity ) {
     try {
       this.logger.info({assistantId, skillsetId, entity: entity.name}, 'Creating new entity')
-      await this.client.createEntity({parent: {assistantId, skillsetId}, entityData: entity})
+      const createdEntity = await this.client.createEntity({parent: {assistantId, skillsetId}, entityData: entity})
       this.logger.info({assistantId, skillsetId, entity: entity.name}, 'Entity successfully created')
-      return true
+      return createdEntity
     } catch (err) {
       this.logger.error({assistantId, skillsetId, entity: entity.name, reason: err.message},'Could not create entity')
       return false
@@ -74,7 +74,7 @@ class Entities {
   async getEntities(assistantId, skillsetId ) {
     try {
       this.logger.info({assistantId, skillsetId}, 'Fetching entities')
-      const entities = await this.client.getEntities({parent: {assistantId, skillsetId}})
+      const entities = await this.client.getEntities({assistantId, skillsetId})
       this.logger.info({assistantId, skillsetId}, 'Entities successfully fetched')
       return entities
     } catch (err) {
