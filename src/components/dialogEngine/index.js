@@ -14,7 +14,7 @@ class Dialog {
       {name: 'ROOT', response: 'Send 1 for branch 1, 2 for branch 2', condition:'message EQ /start', goTo: '', parent: ''},
       {name: 'Default', response: 'default message', condition:'Anything else', goTo: '', parent: ''},
       {name: 'first', response: 'You have reached bottom of the line', condition:'message EQ 1', goTo: '', parent: 'ROOT'},
-      {name: 'second', response: 'Send 1 for branch 1, 2 for branch 2', condition:'message EQ 2', goTo: '', parent: 'ROOT'},
+      {name: 'second', response: 'We are in the second branch, Send 1 for branch 3, 2 for branch 4', condition:'message EQ 2', goTo: '', parent: 'ROOT'},
       {name: 'third', response: 'Hello from third node', condition:'message EQ 1', goTo: '', parent: 'second'},
       {name: 'fourth', response: 'Hello from fourth node', condition:'message IN [2,3,5]', goTo: '', parent: 'second'}
     ]
