@@ -2,7 +2,6 @@ collection:
   get:
     description: Get all assistant skillsets
     tags:
-      - Assistants
       - Skillsets
     parameters:
       - name: id
@@ -31,7 +30,6 @@ instance:
   get:
     description: Get assistant skillset
     tags:
-      - Assistants
       - Skillsets
     parameters:
       - name: id
@@ -63,13 +61,15 @@ instance:
 
   patch:
     description: Update assistant dialog
+    tags:
+      - Skillsets
     parameters: 
       - name: id
         in: path
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:
@@ -122,7 +122,6 @@ converse:
   post:
     description: Converse with assistant based on particular skillset
     tags:
-      - Assistants
       - Skillsets
     parameters:
       - name: id
@@ -130,11 +129,24 @@ converse:
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:
           type: string    
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - message
+            properties:
+              message: 
+                type: string
+              sessionId:
+                type: string
     responses:
       200:
         description: Assistant response to given message

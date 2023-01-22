@@ -2,8 +2,6 @@ collection:
   get:
     description: Get all entities from an assistant skillsets
     tags:
-      - Assistants
-      - Skillsets
       - Entities
     parameters:
       - name: id
@@ -11,7 +9,7 @@ collection:
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:
@@ -33,12 +31,10 @@ collection:
       500:
         $ref: './errors.yaml#/500'
 
-
   post:
     description: Create Entity
+    operationId: createSkillsetEntity
     tags:
-      - Assistants
-      - Skillsets 
       - Entities
     parameters:
       - name: id
@@ -46,7 +42,7 @@ collection:
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:
@@ -81,8 +77,6 @@ instance:
   patch:
     description: Update Entity
     tags:
-      - Assistants
-      - Skillsets 
       - Entities
     parameters:
       - name: id
@@ -90,7 +84,7 @@ instance:
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:
@@ -128,8 +122,6 @@ instance:
   delete:
     description: Delete Entity
     tags:
-      - Assistants
-      - Skillsets 
       - Entities
     parameters:
       - name: id
@@ -137,7 +129,7 @@ instance:
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:
@@ -153,8 +145,6 @@ instance:
   get:
     description: Fetch Entity
     tags:
-      - Assistants
-      - Skillsets 
       - Entities
     parameters:
       - name: id
@@ -162,7 +152,7 @@ instance:
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:

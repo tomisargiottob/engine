@@ -31,6 +31,8 @@ async function main() {
     initialize({
       app,
       apiDoc,
+      validateApiDoc: true,
+      enableObjectCoercion: true,
       dependencies: {
         logger,
         db,

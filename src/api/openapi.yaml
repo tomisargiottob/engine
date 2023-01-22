@@ -11,11 +11,11 @@ paths:
     $ref: ./assistants.yaml#/collection
   /assistants/{id}/skillsets:
     $ref: ./skillsets.yaml#/collection
-  /assistants/{id}/skillsets/{skillsetId}:
+  /assistants/{id}/skillsets/{skillset}:
     $ref: ./skillsets.yaml#/instance
-  /assistants/{id}/skillsets/{skillsetId}/converse:
-    $ref: ./skillsets.yaml#/converse
-  /assistants/{id}/skillsets/{skillsetId}/entities:
+  /assistants/{id}/skillsets/{skillset}/entities:
     $ref: ./entities.yaml#/collection
-  /assistants/{id}/skillsets/{skillsetId}/entities/{entityId}:
+  /assistants/{id}/skillsets/{skillset}/entities/{entityId}:
     $ref: ./entities.yaml#/instance
+  /assistants/{id}/skillsets/{skillset}/converse:
+    $ref: ./skillsets.yaml#/converse
