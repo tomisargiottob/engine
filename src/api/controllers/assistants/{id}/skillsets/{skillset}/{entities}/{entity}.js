@@ -59,7 +59,7 @@ function entityInstanceController(logger, db, errors, entities) {
     get: async function getSkillsetEntity(req, res) {
       const log = logger.child({ module: 'entityInstanceController', method: 'getSkillsetEntity' });
       try {
-        const {id, skillset: skillsetId, entityId} = req.params;
+        const {id, skillset: skillsetId, entity: entityId} = req.params;
         const assistant = await db.assistants.getById(id)
         if (!assistant) {
           log.warn({assistantId: id},'Assistant does not exist')
