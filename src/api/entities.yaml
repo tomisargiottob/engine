@@ -175,15 +175,25 @@ components:
     Entity:
       type: object
       properties:
+        id:
+          type: string
         skillsetId:
           type: string
         assistantId:
           type: string
         name: 
           type: string
-        synonyms:
+        matches:
           type: array
           items:
-            type: string
-        regex:
-          type: string
+            type: object
+            properties:
+              name: 
+                type: string
+              regex:
+                type: string
+              synonyms:
+                type: array
+                items:
+                  type: string
+            
