@@ -50,9 +50,10 @@ class Entities {
   async updateEntity(assistantId, skillsetId, entityId, entityData ) {
     try {
       this.logger.info({assistantId, skillsetId, entity: entityId}, 'Updating entity')
-      await this.client.updateEntity({parent: {assistantId, skillsetId}, entityId ,entityData})
+      entityData.id = entityId;
+      const updatedEntity = await this.client.updateEntity({parent: {assistantId, skillsetId} ,entityData})
       this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entities successfully updated')
-      return true
+      return updatedEntity
     } catch (err) {
       this.logger.error({assistantId, skillsetId,  entity: entityData.name, reason: err.message},'Could not update entity')
       return false

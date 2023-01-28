@@ -3,7 +3,7 @@ function entityInstanceController(logger, db, errors, entities) {
     patch: async function updateEntity(req, res) {
       const log = logger.child({ module: 'entityInstanceController', method: 'updateEntity' });
       try {
-        const {id, skillset: skillsetId, entityId} = req.params;
+        const {id, skillset: skillsetId, entity: entityId} = req.params;
         const assistant = await db.assistants.getById(id)
         if (!assistant) {
           log.warn({assistantId: id},'Assistant does not exist')
@@ -31,7 +31,7 @@ function entityInstanceController(logger, db, errors, entities) {
     delete: async function removeSkillsetEntities(req, res) {
       const log = logger.child({ module: 'entityInstanceController', method: 'removeSkillsetEntities' });
       try {
-        const {id, skillset: skillsetId, entityId} = req.params;
+        const {id, skillset: skillsetId, entity: entityId} = req.params;
         const assistant = await db.assistants.getById(id)
         if (!assistant) {
           log.warn({assistantId: id},'Assistant does not exist')
