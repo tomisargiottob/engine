@@ -5,6 +5,14 @@ class Assistant{
     this.id = data._id;
   }
 
+  update(name) {
+    return this.collection.updateOne({_id: this.id}, { $set: { name}})
+  }
+
+  remove() {
+    return this.collection.deleteOne({_id: this.id})
+  }
+
   toJson() {
     return {
       id: this.id,

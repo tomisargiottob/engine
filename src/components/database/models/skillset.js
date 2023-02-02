@@ -8,7 +8,7 @@ class Skillset{
   }
 
   update(dialog) {
-    return this.collection.update(this.id, { $set: { dialog}})
+    return this.collection.updateOne({_id: this.id}, { $set: { dialog}})
   }
   
   toJson() {
