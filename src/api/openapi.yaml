@@ -9,6 +9,8 @@ servers:
 paths:
   /assistants:
     $ref: ./assistants.yaml#/collection
+  /assistants/{id}:
+    $ref: ./assistants.yaml#/instance
   /assistants/{id}/skillsets:
     $ref: ./skillsets.yaml#/collection
   /assistants/{id}/skillsets/{skillset}:

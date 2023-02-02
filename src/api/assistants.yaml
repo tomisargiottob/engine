@@ -47,3 +47,58 @@ collection:
         $ref: './errors.yaml#/400'
       500:
         $ref: './errors.yaml#/500'
+
+instance:
+  patch:
+    description: Update assistant
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    tags:
+      - Assistants
+    requestBody:
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties: false
+            required:
+              - name
+            properties:
+              name: 
+                type: string
+    responses:
+      200:
+        description: Assistants updated
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name: 
+                  type: string
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+
+  delete:
+    description: Remove assistant
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    tags:
+      - Assistants
+    responses:
+      204:
+        description: Assistants removed
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
