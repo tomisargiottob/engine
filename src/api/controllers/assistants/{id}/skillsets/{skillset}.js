@@ -3,7 +3,7 @@ function skillsetController(logger, db, errors) {
     get: async function getAssistantSkillset(req, res) {
       const log = logger.child({ module: 'skillsetController', method: 'getAssistantSkillset' });
       try {
-        const {id, skillsetId} = req.params;
+        const {id, skillset: skillsetId} = req.params;
         const assistant = await db.assistants.getById(id)
         if (!assistant) {
           log.warn({assistantId: id},'Assistant does not exist')
@@ -15,8 +15,10 @@ function skillsetController(logger, db, errors) {
           log.warn({assistantId: id},'Skillset does not exist')
           throw new errors.NotFoundError('Skillset does not exist')
         }
+        log.info('Skillset found')
+
         res.status(200).send({
-          skillset: skillset.toJSON()
+          skillset: skillset.toJson()
         })
       } catch (err) {
         if (err instanceof errors.NotFoundError) {  
@@ -24,7 +26,7 @@ function skillsetController(logger, db, errors) {
         } else {
           log.error({reason: err.message},'Could not find assistant skillset')
           res.status(500).send({
-              message: 'Could not get assistant'
+              message: 'Could not get assistant skillset'
           })
         }
       }

@@ -37,7 +37,7 @@ instance:
         required: true
         schema:
           type: string
-      - name: skillsetId
+      - name: skillset
         in: path
         required: true
         schema:
