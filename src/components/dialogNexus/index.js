@@ -32,7 +32,7 @@ class DialogNexus {
   async processResponse(assistantId, skillsetId, message, sessionId) {
     this.logger.info('Processing response')
     const context = this.contextHandler.getContext(sessionId);
-    if(!message.beginsWith('/')) {
+    if(!message.startsWith('/')) {
       const entities = await this.entityHandler.identifyEntities(assistantId, skillsetId, message)
       context.setContext(entities)
     }
