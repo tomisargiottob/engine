@@ -34,7 +34,7 @@ class DialogNexus {
     const context = this.contextHandler.getContext(sessionId);
     if(!message.beginsWith('/')) {
       const entities = await this.entityHandler.identifyEntities(assistantId, skillsetId, message)
-      console.log(entities)
+      context.setContext(entities)
     }
     const [response, lastNode] = this.dialogs[assistantId][skillsetId].converse(message, context)
     context.setContext({lastNode})
