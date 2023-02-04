@@ -2,12 +2,13 @@ import ContextHandler from "../contextHandler";
 import Dialog from "../dialogEngine";
 
 class DialogNexus {
-  constructor ({db, logger}, config) {
+  constructor ({db, logger, entities}, config) {
     this.dialogs = {}
     this.db = db;
     this.config = config;
     this.logger = logger.child({module: 'DialogNexus'})
     this.contextHandler = new ContextHandler({logger: this.logger},config.context)
+    this.entityHandler = entities
   }
 
   async init() {
@@ -28,9 +29,13 @@ class DialogNexus {
     dialog.init();
   }
 
-  processResponse(assistantId, skillsetId, message, sessionId) {
+  async processResponse(assistantId, skillsetId, message, sessionId) {
     this.logger.info('Processing response')
     const context = this.contextHandler.getContext(sessionId);
+    if(!message.beginsWith('/')) {
+      const entities = await this.entityHandler.identifyEntities(assistantId, skillsetId, message)
+      console.log(entities)
+    }
     const [response, lastNode] = this.dialogs[assistantId][skillsetId].converse(message, context)
     context.setContext({lastNode})
     return [response || 'Hello world', context.id]
