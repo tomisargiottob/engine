@@ -23,7 +23,7 @@ function entityInstanceController(logger, db, errors, entities) {
         } else {
           log.error({reason: err.message },'Could not update skillset entity')
           res.status(500).send({
-              message: 'Could not update skillset entity'
+              message: `Could not update skillset entity due to ${err.message} `
           })
         }
       }

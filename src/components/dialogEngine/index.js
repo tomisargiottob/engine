@@ -63,9 +63,11 @@ class Dialog {
       }
       if(!nextNode) {
         context.setContext({lastNode: ''})
+        this.logger.info('No node matched condition, returning to root')
         return this.converse(message, context)
       }
     }
+    this.logger.info({node: nextNode.data.name}, 'Sending node message')
     return [nextNode.data.response, nextNode.data.name]
   }
 }
