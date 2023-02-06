@@ -33,13 +33,38 @@ const methods = {
   IN: checkIncludes
 }
 
+function deepSearch(searchedItem, searchObject) {
+  const dividedSearch = searchedItem.split('.')
+  const search = (prop, parent) => {
+    if(parent[prop]) {
+      return parent[prop]
+    }
+    return ''
+  }
+  let result = searchObject
+  dividedSearch.forEach((prop) =>{
+    if(result) {
+      result = search(prop, result)
+    } else {
+      return ''
+    }
+  })
+  return result
+}
+
 function getConditionValue(condition, message, context) {
   let conditionValue;
   if (condition.startsWith('/')) {
     conditionValue = condition
   } else if (condition === 'message') {
     conditionValue = message;
-  } else {
+  } else if(condition.startsWith('@')) {
+    const entities = context.getValue('entities')
+    if(!entities) {
+      return ''
+    }
+    return entities.includes(condition.slice(1))
+  }else{
     const parsedCondition = JSON.parse(condition)
     if(typeof parsedCondition === 'string') {
       conditionValue = context.getValue(parsedCondition)
@@ -55,6 +80,13 @@ function checkCondition(condition, message, context){
     return true
   }
   const splitCondition = condition.split(' ');
+  if(splitCondition.length === 1 && splitCondition[0].startsWith('@')) {
+    const identifiedEntity = getConditionValue(splitCondition[0], message, context)
+    if(!identifiedEntity) {
+      return false
+    }
+    return true
+  }
   if(splitCondition.length !== 3) {
     return false
   }
