@@ -36,64 +36,40 @@ class Entities {
   }
 
   async createEntity(assistantId, skillsetId, entity ) {
-    try {
-      this.logger.info({assistantId, skillsetId, entity: entity.name}, 'Creating new entity')
-      const createdEntity = await this.client.createEntity({parent: {assistantId, skillsetId}, entityData: entity})
-      this.logger.info({assistantId, skillsetId, entity: entity.name}, 'Entity successfully created')
-      return createdEntity
-    } catch (err) {
-      this.logger.error({assistantId, skillsetId, entity: entity.name, reason: err.message},'Could not create entity')
-      return false
-    }
+    this.logger.info({assistantId, skillsetId, entity: entity.name}, 'Creating new entity')
+    const createdEntity = await this.client.createEntity({parent: {assistantId, skillsetId}, entityData: entity})
+    this.logger.info({assistantId, skillsetId, entity: entity.name}, 'Entity successfully created')
+    return createdEntity
   }
 
   async updateEntity(assistantId, skillsetId, entityId, entityData ) {
-    try {
-      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Updating entity')
-      entityData.id = entityId;
-      const updatedEntity = await this.client.updateEntity({parent: {assistantId, skillsetId} ,entityData})
-      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entities successfully updated')
-      return updatedEntity
-    } catch (err) {
-      this.logger.error({assistantId, skillsetId,  entity: entityData.name, reason: err.message},'Could not update entity')
-      return false
-    }
+    this.logger.info({assistantId, skillsetId, entity: entityId}, 'Updating entity')
+    entityData.id = entityId;
+    const updatedEntity = await this.client.updateEntity({parent: {assistantId, skillsetId} ,entityData})
+    this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entities successfully updated')
+    return updatedEntity
   }
 
   async deleteEntity(assistantId, skillsetId, entityId ) {
-    try {
-      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Removing entity')
-      await this.client.deleteEntity({parent: {assistantId, skillsetId}, entityId})
-      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entity successfully removed')
-      return true
-    } catch (err) {
-      this.logger.error({assistantId, skillsetId,  entity: entityId, reason: err.message},'Could not remove entity')
-      return false
-    }
+    this.logger.info({assistantId, skillsetId, entity: entityId}, 'Removing entity')
+    await this.client.deleteEntity({parent: {assistantId, skillsetId}, entityId})
+    this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entity successfully removed')
+    return true
+   
   }
 
   async getEntities(assistantId, skillsetId ) {
-    try {
-      this.logger.info({assistantId, skillsetId}, 'Fetching entities')
-      const entities = await this.client.getEntities({assistantId, skillsetId})
-      this.logger.info({assistantId, skillsetId}, 'Entities successfully fetched')
-      return entities
-    } catch (err) {
-      this.logger.error({assistantId, skillsetId, reason: err.message},'Could not fetch entities')
-      return false
-    }
+    this.logger.info({assistantId, skillsetId}, 'Fetching entities')
+    const entities = await this.client.getEntities({assistantId, skillsetId})
+    this.logger.info({assistantId, skillsetId}, 'Entities successfully fetched')
+    return entities
   }
 
   async getEntity(assistantId, skillsetId, entityId ) {
-    try {
-      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Fetching entity')
-      const entity = await this.client.getEntity({parent: {assistantId, skillsetId}, entityId })
-      this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entity successfully fetched')
-      return entity
-    } catch (err) {
-      this.logger.error({assistantId, skillsetId,  entity: entityId, reason: err.message},'Could not fetch entity')
-      return false
-    }
+    this.logger.info({assistantId, skillsetId, entity: entityId}, 'Fetching entity')
+    const entity = await this.client.getEntity({parent: {assistantId, skillsetId}, entityId })
+    this.logger.info({assistantId, skillsetId, entity: entityId}, 'Entity successfully fetched')
+    return entity
   }
 
   async identifyEntities(assistantId, skillsetId, message) {
