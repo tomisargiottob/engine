@@ -78,26 +78,31 @@ instance:
       content:
         application/json:
           schema:
-            type: array
-            items:
-              type: object
-              required:
-                - name
-                - condition
-                - response
-                - goTo
-                - parent
-              properties:
-                name: 
-                  type: string
-                condition: 
-                  type: string
-                response: 
-                  type: string
-                goTo: 
-                  type: string
-                parent: 
-                  type: string
+            type: object
+            required:
+              - dialog
+            properties:
+              dialog:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - name
+                    - condition
+                    - response
+                    - goTo
+                    - parent
+                  properties:
+                    name: 
+                      type: string
+                    condition: 
+                      type: string
+                    response: 
+                      type: string
+                    goTo: 
+                      type: string
+                    parent: 
+                      type: string
     responses:
       200:
         description: Assistants skillsets fetched
