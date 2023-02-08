@@ -14,7 +14,9 @@ class Skillset{
   toJson() {
     return {
       id: this.id,
-      name: this.name
+      name: this.name,
+      assistatId: this.assistantId,
+      dialog: this.dialog
     }
   }
 }
