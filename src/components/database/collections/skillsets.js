@@ -38,7 +38,10 @@ class Skillsets{
     const createSkillset= {
       _id: uuid(),
       ...skillsetData,
-      dialog: []
+      dialog: [
+        {"name": "ROOT", "response": "Send 1 for branch 1, 2 for branch 2", "condition":"message EQ /start", "goTo": "", "parent": ""},
+        {"name": "Default", "response": "default message", "condition":"Anything else", "goTo": "", "parent": ""}
+      ]
     }
     const skillset = await this.collection.insertOne(createSkillset);
     return this.getById(skillset.insertedId)
