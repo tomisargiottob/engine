@@ -22,6 +22,7 @@ class Assistants{
   }
 
   async create(assistantData) {
+    assistantData.createdAt = Date.now()
     const assistant = await this.collection.insertOne({_id: uuid(), ...assistantData});
     return this.getById(assistant.insertedId)
   }

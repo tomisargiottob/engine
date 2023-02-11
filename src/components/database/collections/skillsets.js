@@ -35,6 +35,7 @@ class Skillsets{
   }
 
   async create(skillsetData) {
+    skillsetData.createdAt = Date.now()
     const createSkillset= {
       _id: uuid(),
       ...skillsetData,

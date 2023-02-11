@@ -6,7 +6,7 @@ class Assistant{
   }
 
   update(name) {
-    return this.collection.updateOne({_id: this.id}, { $set: { name}})
+    return this.collection.updateOne({_id: this.id}, { $set: { name, updatedAt: Date.now()}})
   }
 
   remove() {
