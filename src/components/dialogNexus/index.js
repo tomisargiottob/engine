@@ -38,7 +38,9 @@ class DialogNexus {
     }
     const [response, lastNode] = this.dialogs[assistantId][skillsetId].converse(message, context)
     context.setContext({lastNode})
-    return [response || 'Hello world', context.id]
+    await this.db.interactions.create({message, response, skillsetId, assistantId, sessionId: context.id, context: context.toJson()})
+    context.cleanTemporaryState({lastNode})
+    return [response, context.id]
   }
 }
 
