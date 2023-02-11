@@ -1,5 +1,6 @@
 import { MongoClient } from "mongodb";
 import Assistants from "./collections/assistants";
+import Interactions from "./collections/interactions";
 import Skillsets from "./collections/skillsets";
 
 class Database {
@@ -15,6 +16,7 @@ class Database {
     this.db = this.client.db(this.config.dbName);
     this.assistants = new Assistants(this.db)
     this.skillsets = new Skillsets(this.db)
+    this.interactions = new Interactions(this.db)
   }
 }
 
