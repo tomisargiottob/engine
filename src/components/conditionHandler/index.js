@@ -33,6 +33,7 @@ const methods = {
   IN: checkIncludes
 }
 
+// eslint-disable-next-line no-unused-vars
 function deepSearch(searchedItem, searchObject) {
   const dividedSearch = searchedItem.split('.')
   const search = (prop, parent) => {

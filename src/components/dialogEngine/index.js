@@ -29,6 +29,7 @@ class Dialog {
         this.dialog.addLink(node.parent, node.name)
       }
     }
+    this.logger.info('Dialog successfully initiated')
   }
 
   converse(message, context) {

@@ -15,7 +15,9 @@ function entityInstanceController(logger, db, errors, entities) {
           log.warn({assistantId: id},'Skillset does not exist')
           throw new errors.NotFoundError('Skillset does not exist')
         }
+        log.info('Skillset found')
         const updatedEntity = await entities.updateEntity(id, skillsetId, entityId, req.body)
+        log.info('Entity successfully updated')
         res.status(200).send(updatedEntity)
       } catch (err) {
         if (err instanceof errors.NotFoundError) {  
@@ -43,7 +45,9 @@ function entityInstanceController(logger, db, errors, entities) {
           log.warn({assistantId: id},'Skillset does not exist')
           throw new errors.NotFoundError('Skillset does not exist')
         }
+        log.info('Skillset found')
         await entities.deleteEntity(id, skillsetId, entityId)
+        log.info('Entity successfully deleted')
         res.status(204).send()
       } catch (err) {
         if (err instanceof errors.NotFoundError) {  
@@ -71,7 +75,9 @@ function entityInstanceController(logger, db, errors, entities) {
           log.warn({assistantId: id},'Skillset does not exist')
           throw new errors.NotFoundError('Skillset does not exist')
         }
+        log.info('Skillset found')
         const entity = await entities.getEntity(id, skillsetId, entityId)
+        log.info('Sending fetched entity')
         res.status(200).send(entity)
       } catch (err) {
         if (err instanceof errors.NotFoundError) {  

@@ -17,6 +17,7 @@ function converseController(logger, db, errors, dialogNexus) {
           throw new errors.NotFoundError('Skillset does not exist')
         }
         const [response, contextId] = await dialogNexus.processResponse(id,skillsetId, message, sessionId);
+        log.info('Conversation successfully answered')
         res.status(200).send({
           response,
           sessionId: contextId
