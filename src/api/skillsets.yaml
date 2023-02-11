@@ -169,6 +169,44 @@ converse:
       500:
         $ref: './errors.yaml#/500'
 
+interactions:
+  get: 
+    description: Get Interactions handled by skillset
+    tags:
+      - Skillsets
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: skillset
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: where
+        in: query
+        required: false
+        schema:
+          type: object
+          properties:
+            sessionId:
+              type: string     
+    responses:
+      200:
+        description: Interactions
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Interaction'
+      400:
+        $ref: './errors.yaml#/400'
+      404:
+        $ref: './errors.yaml#/404'
+      500:
+        $ref: './errors.yaml#/500'
+
 components:
   schemas:
     Dialog:
@@ -191,4 +229,26 @@ components:
           goTo: 
             type: string
           parent: 
-            type: string  
+            type: string
+    Interaction:
+      type: object
+      required:
+        - message
+        - response
+        - assistantId
+        - skillsetId
+        - sessionId
+      properties:
+        id: 
+          type: string
+          readOnly: true
+        response: 
+          type: string
+        assistantId: 
+          type: string
+        skillsetId: 
+          type: string  
+        message:
+          type: string  
+        sessionId:  
+          type: string
