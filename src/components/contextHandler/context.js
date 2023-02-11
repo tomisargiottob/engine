@@ -29,6 +29,19 @@ class Context {
     }
     return value
   }
+
+  cleanTemporaryState() {
+    this.tempVariables = {}
+  }
+
+  toJson() {
+    return {
+      id: this.id,
+      temporaryVariables: this.tempVariables,
+      variables: this.variables,
+      data: this.data,
+    }
+  }
 }
 
 export default Context
