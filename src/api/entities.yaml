@@ -100,6 +100,8 @@ instance:
             properties:
               name: 
                 type: string
+              description:
+                type: string
               matches: 
                 type: array
                 items: 
