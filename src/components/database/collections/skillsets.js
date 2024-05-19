@@ -40,8 +40,8 @@ class Skillsets{
       _id: uuid(),
       ...skillsetData,
       dialog: [
-        {"name": "ROOT", "response": "Send 1 for branch 1, 2 for branch 2", "condition":"message EQ /start", "goTo": "", "parent": ""},
-        {"name": "Default", "response": "default message", "condition":"Anything else", "goTo": "", "parent": ""}
+        {label: "ROOT", "name": "ROOT", "response": "Send 1 for branch 1, 2 for branch 2", "condition":"message EQ /start", "goTo": "", "parent": ""},
+        {label: "Default", "name": "Default", "response": "default message", "condition":"Anything else", "goTo": "", "parent": ""}
       ]
     }
     const skillset = await this.collection.insertOne(createSkillset);

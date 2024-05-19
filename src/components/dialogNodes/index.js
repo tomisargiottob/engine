@@ -1,5 +1,6 @@
 class DialogNode{
   constructor(node) {
+    this.label = node.label
     this.condition = node.condition;
     this.message = node.message;
     // webhook

@@ -66,12 +66,12 @@ function getConditionValue(condition, message, context) {
     }
     return entities.includes(condition.slice(1))
   }else{
-    const parsedCondition = JSON.parse(condition)
-    if(typeof parsedCondition === 'string') {
-      conditionValue = context.getValue(parsedCondition)
-    } else {
-      conditionValue = parsedCondition
-    }
+    // const parsedCondition = !['string', 'number'].includes(typeof parsedCondition) ? JSON.parse(condition) : condition
+    // if(typeof parsedCondition === 'string') {
+    //   conditionValue = context.getValue(parsedCondition)
+    // } else {
+    conditionValue = condition
+    // }
   }
   return conditionValue
 }

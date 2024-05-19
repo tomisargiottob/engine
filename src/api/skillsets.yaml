@@ -93,6 +93,8 @@ instance:
                     - goTo
                     - parent
                   properties:
+                    label:
+                      type: string
                     name: 
                       type: string
                     condition: 
@@ -220,6 +222,8 @@ components:
           - goTo
           - parent
         properties:
+          label:
+            type: string
           name: 
             type: string
           condition: 

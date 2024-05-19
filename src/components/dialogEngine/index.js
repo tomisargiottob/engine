@@ -22,14 +22,28 @@ class Dialog {
 
   init() {
     this.logger.info('Initializing dialog')
+    this.defaultNodes = []
     for(const node of this.currentDialog) {
       this.nodes[node.name] = new DialogNode(node)
       this.dialog.addNode(node.name, node)
       if(node.parent) {
         this.dialog.addLink(node.parent, node.name)
+      } else if (!['ROOT'].includes(node.name)){
+        this.defaultNodes.push(node.name)
       }
     }
     this.logger.info('Dialog successfully initiated')
+  }
+
+  checkDefaultNodes(message, context) {
+    let nextNode
+    for (const node of ['ROOT', ...this.defaultNodes]) {
+      nextNode = this.dialog.getNode(node)
+      if(checkCondition(nextNode.data.condition, message, context)) {
+        return nextNode
+      }
+    }
+    return 
   }
 
   converse(message, context) {
@@ -40,10 +54,7 @@ class Dialog {
     }
     let nextNode;
     if(!lastNodeName) {
-      nextNode = this.dialog.getNode('ROOT')
-      if(!checkCondition(nextNode.data.condition, message, context)) {
-        nextNode = this.dialog.getNode('Default')
-      }
+      nextNode = this.checkDefaultNodes(message, context)
     } else {
       const nextNodesLinks = this.dialog.getLinks(lastNodeName);
       if(nextNodesLinks) {
